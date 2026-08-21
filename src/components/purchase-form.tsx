@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleCheck, ImagePlus } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -34,6 +34,18 @@ export function PurchaseForm() {
   });
 
   const [quantity, setQuantity] = useState(1);
+  const [receiptName, setReceiptName] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const receiptInputRef = useRef<HTMLInputElement | null>(null);
+  const receiptRegister = register("receipt");
+
+  function setReceiptPreview(file?: File) {
+    setReceiptName(file?.name ?? null);
+    setPreviewUrl((current) => {
+      if (current) URL.revokeObjectURL(current);
+      return file ? URL.createObjectURL(file) : null;
+    });
+  }
 
   async function onSubmit(values: PurchaseFormValues) {
     setSubmitError(null);
@@ -62,6 +74,7 @@ export function PurchaseForm() {
 
     setAssignedNumbers(payload.numbers);
     setQuantity(1);
+    setReceiptPreview();
     reset({ name: "", email: "", phone: "", quantity: 1 });
   }
 
@@ -162,18 +175,50 @@ export function PurchaseForm() {
             />
           </Field>
 
-          <Field label="Comprobante" error={errors.receipt?.message}>
-            <label className="flex min-h-28 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-input bg-muted/40 px-4 py-6 text-center text-sm text-muted-foreground">
-              <ImagePlus className="size-5" />
-              <span>JPG, PNG o WebP · máx. 4.5 MB</span>
-              <input
-                id="receipt"
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                className="sr-only"
-                {...register("receipt")}
-              />
-            </label>
+          <Field label="Comprobante" htmlFor="receipt" error={errors.receipt?.message}>
+            <input
+              id="receipt"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              className="sr-only"
+              {...receiptRegister}
+              ref={(element) => {
+                receiptRegister.ref(element);
+                receiptInputRef.current = element;
+              }}
+              onChange={(event) => {
+                receiptRegister.onChange(event);
+                setReceiptPreview(event.target.files?.[0]);
+              }}
+            />
+            <button
+              type="button"
+              className="flex min-h-28 w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-input bg-muted/40 px-4 py-6 text-center text-sm text-muted-foreground"
+              onClick={() => receiptInputRef.current?.click()}
+            >
+              {previewUrl ? (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={previewUrl}
+                    alt="Vista previa del comprobante"
+                    className="max-h-40 w-auto rounded-lg object-contain"
+                  />
+                  <span className="font-medium text-foreground">
+                    {receiptName}
+                  </span>
+                  <span>Tocá para cambiar la imagen</span>
+                </>
+              ) : (
+                <>
+                  <ImagePlus className="size-5" />
+                  <span className="font-medium text-foreground">
+                    Elegir imagen del comprobante
+                  </span>
+                  <span>JPG, PNG o WebP · máx. 4.5 MB</span>
+                </>
+              )}
+            </button>
           </Field>
 
           {submitError ? (
@@ -197,16 +242,18 @@ export function PurchaseForm() {
 
 function Field({
   label,
+  htmlFor,
   error,
   children,
 }: {
   label: string;
+  htmlFor?: string;
   error?: string;
   children: ReactNode;
 }) {
   return (
     <div className="space-y-2">
-      <Label>{label}</Label>
+      <Label htmlFor={htmlFor}>{label}</Label>
       {children}
       {error ? (
         <p className="text-sm text-destructive" role="alert">

@@ -6,17 +6,29 @@ import { content } from "@/lib/content";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--accent),transparent_42%),radial-gradient(circle_at_bottom_left,oklch(0.88_0.05_70),transparent_40%)]" />
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:py-20 lg:grid-cols-[1.1fr_0.9fr]">
-        <div>
-          <p className="mb-4 text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase">
-            {content.hero.eyebrow}
-          </p>
-          <h1 className="font-heading max-w-xl text-4xl leading-[1.05] font-medium tracking-tight text-balance sm:text-6xl">
+    <section className="relative min-h-[32rem] overflow-hidden sm:min-h-[36rem] lg:min-h-[40rem]">
+      <Image
+        src={content.hero.photo}
+        alt="Henrry, la causa de esta rifa"
+        fill
+        priority
+        className="object-cover object-[center_30%]"
+        sizes="100vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/55 to-background/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-background/10" />
+
+      <div className="relative mx-auto flex w-full max-w-6xl items-end px-4 py-14 sm:items-center sm:py-20">
+        <div className="max-w-xl rounded-3xl border border-white/30 bg-background/75 p-6 shadow-lg backdrop-blur-md sm:p-8">
+          {content.hero.eyebrow ? (
+            <p className="mb-4 text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase">
+              {content.hero.eyebrow}
+            </p>
+          ) : null}
+          <h1 className="font-heading text-4xl leading-[1.05] font-medium tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {content.hero.title}
           </h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
             {content.hero.subtitle}
           </p>
           <div className="mt-8">
@@ -30,17 +42,6 @@ export function Hero() {
               <ArrowRight data-icon="inline-end" />
             </Button>
           </div>
-        </div>
-
-        <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-card ring-1 ring-foreground/10 sm:aspect-[5/4] lg:aspect-[4/5]">
-          <Image
-            src={content.hero.photo}
-            alt="Henrry, la causa de esta rifa"
-            fill
-            priority
-            className="object-cover"
-            sizes="(min-width: 1024px) 28rem, 100vw"
-          />
         </div>
       </div>
     </section>

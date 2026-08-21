@@ -22,7 +22,7 @@ export const content = {
     eyebrow: '',
     title: 'Apoyemos a Henrry a pagar el hospital',
     subtitle:
-      'Henrry es un gran ser humano, voluntario, amigo, hijo que por mucho tiempo se hizo cargo de su familia. Sus amigos creamos esta rifa para aliviar un poquito la cuenta del hospital de su hermanita. ❤️ mira los premios y apoya con una rifa.',
+      'Henrry es un gran ser humano, voluntario, amigo, hijo que por mucho tiempo se hizo cargo de su familia. \n Sus amigos creamos esta rifa para aliviar un poquito la cuenta del hospital de su hermanita ✝️. \n ❤️ Mira los premios de nuestros auspiciadores.',
     cta: 'Comprar Rifas',
     photo: '/causa.jpeg'
   },

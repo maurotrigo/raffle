@@ -84,7 +84,7 @@ export function PurchaseForm({ embedded = false }: { embedded?: boolean }) {
       <h3 className="font-heading mt-4 text-3xl">Tus números ya están</h3>
       <p className="mt-2 text-muted-foreground">
         Quedan pendientes de confirmación. El equipo revisa el comprobante y
-        habilita o rechaza la compra en la planilla.
+        confirma o rechaza la compra.
       </p>
       <p className="font-heading mt-6 text-4xl tracking-tight">
         {formatRaffleNumbers(assignedNumbers)}
@@ -183,7 +183,7 @@ export function PurchaseForm({ embedded = false }: { embedded?: boolean }) {
                   <span className="font-medium text-foreground">
                     {receiptName}
                   </span>
-                  <span>Tocá para cambiar la imagen</span>
+                  <span>Toca para cambiar la imagen</span>
                 </>
               ) : (
                 <>

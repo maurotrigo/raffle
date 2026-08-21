@@ -12,7 +12,7 @@ export function BuySection() {
             Comprar
           </p>
           <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
-            Transferí {formatPrice()} y subí el comprobante
+            Transfiere {formatPrice()} y sube tu comprobante
           </h2>
         </div>
 

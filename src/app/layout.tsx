@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { content } from "@/lib/content";
 
 import "./globals.css";
@@ -31,7 +32,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }

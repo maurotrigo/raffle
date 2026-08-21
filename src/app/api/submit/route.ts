@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     if (!parsed.success) {
       return NextResponse.json(
-        { error: parsed.error.issues[0]?.message ?? "Revisá los datos" },
+        { error: parsed.error.issues[0]?.message ?? "Revisa los datos" },
         { status: 400 },
       );
     }
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     const receipt = formData.get("receipt");
     if (!(receipt instanceof File) || receipt.size === 0) {
       return NextResponse.json(
-        { error: "Subí la foto del comprobante" },
+        { error: "Sube la foto del comprobante" },
         { status: 400 },
       );
     }
@@ -57,8 +57,8 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error: isConfigError
-          ? "El sitio todavía no tiene configurado el pago. Probá de nuevo en un rato."
-          : "No pudimos registrar la compra. Intentá de nuevo.",
+          ? "El sitio todavía no tiene configurado el pago. Intenta de nuevo en un momento."
+          : "No pudimos registrar la compra. Intenta de nuevo.",
       },
       { status: 500 },
     );

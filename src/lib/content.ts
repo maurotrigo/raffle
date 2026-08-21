@@ -17,12 +17,12 @@ export type Sponsor = {
 };
 
 export const content = {
-  siteName: "Rifa solidaria",
+  siteName: "Apoyemos a Henrry",
   hero: {
-    eyebrow: "Rifa solidaria",
+    eyebrow: "Apoyemos a Henrry",
     title: "Apoyemos a Henrry a pagar el hospital",
     subtitle:
-      "Comprá tu número, transferí y subí el comprobante. Te asignamos los números al instante; el equipo los habilita cuando confirma el pago.",
+      "Compra tu número, transfiere y sube tu comprobante. Te asignamos tus números al instante; el equipo los confirma cuando valida el pago.",
     cta: "Comprar Rifas",
     photo: "/causa.svg",
   },
@@ -31,8 +31,8 @@ export const content = {
     heading: "Apoyemos a Henrry a pagar el hospital",
     photo: "/causa.svg",
     paragraphs: [
-      "Completá este texto con a quién ayuda Henrry y por qué la rifa. Dos o tres frases claras alcanzan: la gente necesita entender a dónde va su plata.",
-      "Cuando tengas la foto final, reemplazá public/causa.svg.",
+      "Completa este texto con a quién ayuda Henrry y por qué es la rifa. Dos o tres frases claras bastan: las personas necesitan entender a dónde va su dinero.",
+      "Cuando tengas la foto final, reemplaza public/causa.svg.",
     ],
   },
   ticket: {
@@ -44,8 +44,8 @@ export const content = {
   bank: {
     bank: "COMPLETAR banco",
     holder: "COMPLETAR titular",
-    account: "COMPLETAR nro. de cuenta / alias",
-    extra: "En el comentario de la transferencia, poné tu nombre y apellido.",
+    account: "COMPLETAR número de cuenta / alias",
+    extra: "En el concepto de la transferencia, escribe tu nombre completo.",
     qrImage: "/qr.svg",
   },
   combos: [
@@ -60,7 +60,7 @@ export const content = {
         },
         { description: "1 lavado de auto", sponsor: "Auto Francia" },
         {
-          description: "1 vale físico (mix de 6 galletas + helado soft)",
+          description: "1 vale físico (mix de 6 galletas + helado suave)",
           sponsor: "Baked with Love",
         },
         { description: "1 beca completa CROSSFIT", sponsor: "The Fit Bros" },
@@ -81,7 +81,7 @@ export const content = {
         { description: "1 lavado de auto", sponsor: "Auto Francia" },
         { description: "3 horas de pádel", sponsor: "Pádel Arena" },
         {
-          description: "1 vale físico (mix de 6 galletas + helado soft)",
+          description: "1 vale físico (mix de 6 galletas + helado suave)",
           sponsor: "Baked with Love",
         },
         { description: "1 bolsa de 250 gr", sponsor: "Ilapso" },
@@ -101,7 +101,7 @@ export const content = {
         { description: "1 torta para 15 personas", sponsor: "Kekes" },
         { description: "1 combo Marraqueta + refresco", sponsor: "Marraqueta" },
         {
-          description: "1 vale físico (mix de 6 galletas + helado soft)",
+          description: "1 vale físico (mix de 6 galletas + helado suave)",
           sponsor: "Baked with Love",
         },
         { description: "1 beca completa GYM", sponsor: "The Fit Bros" },
@@ -119,7 +119,7 @@ export const content = {
           sponsor: "Zékiri",
         },
         { description: "1 lavado de auto", sponsor: "Auto Francia" },
-        { description: "Tablita grande", sponsor: "Merenda Charcutería" },
+        { description: "Tabla grande de charcutería", sponsor: "Merenda Charcutería" },
         { description: "1 canasta de productos", sponsor: "Nutrifoods" },
         { description: "1 combo Marraqueta + refresco", sponsor: "Marraqueta" },
         { description: "1 vale de 50 Bs", sponsor: "Munsa" },

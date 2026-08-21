@@ -137,3 +137,30 @@
     ),
     radial-gradient(circle at right center, var(--background) 10px, transparent 10px);
 }
+
+.sponsor-marquee-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.sponsor-marquee {
+  animation: sponsor-marquee 42s linear infinite;
+}
+
+.sponsor-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes sponsor-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

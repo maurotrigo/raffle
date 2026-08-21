@@ -3,7 +3,7 @@ import path from "node:path";
 
 import Image from "next/image";
 
-import { content, sponsorInitials } from "@/lib/content";
+import { content, sponsorInitials, type Sponsor } from "@/lib/content";
 
 function hasLogoFile(logoPath: string) {
   return existsSync(
@@ -11,50 +11,50 @@ function hasLogoFile(logoPath: string) {
   );
 }
 
-export function Sponsors() {
+function LogoMark({ sponsor, hasLogo }: { sponsor: Sponsor; hasLogo: boolean }) {
   return (
-    <section id="auspiciadores" className="scroll-mt-20 bg-card/60">
-      <div className="mx-auto w-full max-w-6xl px-4 py-16">
-        <div className="mb-10 max-w-2xl">
-          <p className="mb-3 text-xs tracking-[0.2em] text-muted-foreground uppercase">
-            Auspiciadores
-          </p>
-          <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
-            Gracias a quienes hacen posible la rifa
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            Mientras llegan los logos, cada marca aparece con sus iniciales.
-          </p>
-        </div>
+    <div className="flex h-16 min-w-40 items-center justify-center gap-3 rounded-2xl bg-background px-4 ring-1 ring-foreground/8">
+      {hasLogo ? (
+        <Image
+          src={sponsor.logo}
+          alt={sponsor.name}
+          width={140}
+          height={48}
+          className="h-10 w-auto max-w-28 object-contain"
+        />
+      ) : (
+        <span className="flex size-10 items-center justify-center rounded-full bg-secondary text-sm font-medium">
+          {sponsorInitials(sponsor.name)}
+        </span>
+      )}
+      <span className="max-w-28 text-left text-sm leading-snug font-medium">
+        {sponsor.name}
+      </span>
+    </div>
+  );
+}
 
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {content.sponsors.map((sponsor) => {
-            const showLogo = hasLogoFile(sponsor.logo);
+export function Sponsors() {
+  const logos = content.sponsors.map((sponsor) => ({
+    sponsor,
+    hasLogo: hasLogoFile(sponsor.logo),
+  }));
+  const loop = [...logos, ...logos];
 
-            return (
-              <li
-                key={sponsor.slug}
-                className="flex min-h-32 flex-col items-center justify-center gap-3 rounded-2xl bg-background px-3 py-5 text-center ring-1 ring-foreground/8"
-              >
-                {showLogo ? (
-                  <Image
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    width={160}
-                    height={80}
-                    className="h-12 w-auto object-contain"
-                  />
-                ) : (
-                  <span className="flex size-14 items-center justify-center rounded-full bg-secondary font-heading text-lg text-secondary-foreground">
-                    {sponsorInitials(sponsor.name)}
-                  </span>
-                )}
-                <span className="text-sm leading-snug font-medium">
-                  {sponsor.name}
-                </span>
-              </li>
-            );
-          })}
+  return (
+    <section id="auspiciadores" className="border-y border-border/70 bg-card/60 py-6">
+      <div className="mx-auto mb-4 w-full max-w-6xl px-4">
+        <p className="text-xs tracking-[0.2em] text-muted-foreground uppercase">
+          Auspiciadores
+        </p>
+      </div>
+      <div className="sponsor-marquee-mask overflow-hidden">
+        <ul className="sponsor-marquee flex w-max gap-3 pr-3">
+          {loop.map(({ sponsor, hasLogo }, index) => (
+            <li key={`${sponsor.slug}-${index}`} aria-hidden={index >= logos.length}>
+              <LogoMark sponsor={sponsor} hasLogo={hasLogo} />
+            </li>
+          ))}
         </ul>
       </div>
     </section>

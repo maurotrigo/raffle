@@ -11,21 +11,23 @@ export function SiteHeader() {
           {content.siteName}
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
+          <a href="#comprar" className="hover:text-foreground">
+            Comprar
+          </a>
           <a href="#causa" className="hover:text-foreground">
             Causa
           </a>
           <a href="#premios" className="hover:text-foreground">
             Premios
           </a>
-          <a href="#auspiciadores" className="hover:text-foreground">
-            Auspiciadores
-          </a>
-          <a href="#pago" className="hover:text-foreground">
-            Pago
-          </a>
         </nav>
-        <Button render={<a href="#comprar" />} size="lg" className="h-10 px-4">
-          Comprar
+        <Button
+          nativeButton={false}
+          render={<a href="#comprar" />}
+          size="lg"
+          className="h-10 px-4"
+        >
+          Comprar Rifas
         </Button>
       </div>
     </header>

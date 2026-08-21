@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Foto Combo 1">
+  <rect width="800" height="500" fill="#efe2cf"/>
+  <rect x="40" y="40" width="720" height="420" rx="28" fill="#f7efe4" stroke="#d8c4a6"/>
+  <text x="400" y="240" text-anchor="middle" fill="#3d2a1a" font-family="Georgia, serif" font-size="42">Combo 1</text>
+  <text x="400" y="286" text-anchor="middle" fill="#6b4b35" font-family="Georgia, serif" font-size="18">Foto placeholder</text>
+</svg>

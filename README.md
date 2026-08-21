@@ -22,8 +22,10 @@ Editá el copy, el precio y los datos bancarios en [`src/lib/content.ts`](src/li
 
 ## Assets
 
-- QR de pago: reemplazá [`public/qr.svg`](public/qr.svg) o cambiá `content.bank.qrImage` a `/qr.png` y dejá el archivo en `public/qr.png`.
-- Logos de auspiciadores: `public/sponsors/{slug}.png`. Los slugs están en `content.sponsors`. Si el archivo no existe, se muestra el placeholder con iniciales.
+- Foto de la causa: reemplazá [`public/causa.svg`](public/causa.svg) o cambiá `content.hero.photo` a `/causa.jpg`.
+- Fotos de combos: `public/combos/combo-1.svg` … `combo-5.svg` (o PNG con el mismo path en `content.combos`).
+- QR de pago: reemplazá [`public/qr.svg`](public/qr.svg) o cambiá `content.bank.qrImage` a `/qr.png`.
+- Logos de auspiciadores: `public/sponsors/{slug}.png`. Si falta el archivo, el carrusel muestra iniciales.
 
 ## Google Sheets
 

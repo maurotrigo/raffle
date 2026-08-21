@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { content } from "@/lib/content";
@@ -22,8 +24,15 @@ export function Prizes() {
           {content.combos.map((combo) => (
             <Card
               key={combo.id}
-              className={combo.id === 5 ? "xl:col-span-1 md:col-span-2 xl:col-auto" : undefined}
+              className={combo.id === 5 ? "md:col-span-2 xl:col-span-1" : undefined}
             >
+              <Image
+                src={combo.image}
+                alt={`Foto del ${combo.name}`}
+                width={800}
+                height={500}
+                className="aspect-[8/5] w-full object-cover"
+              />
               <CardHeader className="border-b">
                 <div className="flex items-center justify-between gap-3">
                   <CardTitle className="font-heading text-2xl">
@@ -35,7 +44,10 @@ export function Prizes() {
               <CardContent>
                 <ul className="divide-y divide-border/70">
                   {combo.items.map((item) => (
-                    <li key={`${item.description}-${item.sponsor}`} className="py-3">
+                    <li
+                      key={`${item.description}-${item.sponsor}`}
+                      className="py-3"
+                    >
                       <p className="leading-snug">{item.description}</p>
                       <p className="mt-1 text-xs tracking-wide text-muted-foreground uppercase">
                         {item.sponsor}

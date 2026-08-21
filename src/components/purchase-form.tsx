@@ -14,7 +14,7 @@ import {
   type PurchaseFormValues,
 } from "@/lib/validations";
 
-export function PurchaseForm() {
+export function PurchaseForm({ embedded = false }: { embedded?: boolean }) {
   const [assignedNumbers, setAssignedNumbers] = useState<number[] | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -78,52 +78,28 @@ export function PurchaseForm() {
     reset({ name: "", email: "", phone: "", quantity: 1 });
   }
 
-  if (assignedNumbers) {
-    return (
-      <section id="comprar" className="scroll-mt-20 bg-card/60">
-        <div className="mx-auto w-full max-w-xl px-4 py-16">
-          <div className="rounded-3xl bg-background p-6 ring-1 ring-foreground/10 sm:p-8">
-            <CircleCheck className="size-10 text-primary" />
-            <h2 className="font-heading mt-4 text-3xl">Tus números ya están</h2>
-            <p className="mt-2 text-muted-foreground">
-              Quedan pendientes de confirmación. El equipo revisa el
-              comprobante y habilita o rechaza la compra en la planilla.
-            </p>
-            <p className="font-heading mt-6 text-4xl tracking-tight">
-              {formatRaffleNumbers(assignedNumbers)}
-            </p>
-            <Button
-              className="mt-8 h-11 px-4"
-              onClick={() => setAssignedNumbers(null)}
-            >
-              Cargar otra compra
-            </Button>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const success = assignedNumbers ? (
+    <div className="rounded-3xl bg-card p-6 ring-1 ring-foreground/10 sm:p-8">
+      <CircleCheck className="size-10 text-primary" />
+      <h3 className="font-heading mt-4 text-3xl">Tus números ya están</h3>
+      <p className="mt-2 text-muted-foreground">
+        Quedan pendientes de confirmación. El equipo revisa el comprobante y
+        habilita o rechaza la compra en la planilla.
+      </p>
+      <p className="font-heading mt-6 text-4xl tracking-tight">
+        {formatRaffleNumbers(assignedNumbers)}
+      </p>
+      <Button className="mt-8 h-11 px-4" onClick={() => setAssignedNumbers(null)}>
+        Cargar otra compra
+      </Button>
+    </div>
+  ) : null;
 
-  return (
-    <section id="comprar" className="scroll-mt-20 bg-card/60">
-      <div className="mx-auto w-full max-w-xl px-4 py-16">
-        <p className="mb-3 text-xs tracking-[0.2em] text-muted-foreground uppercase">
-          Comprar
-        </p>
-        <h2 className="font-heading text-3xl leading-tight sm:text-4xl">
-          Subí el comprobante y recibí tus números
-        </h2>
-        <p className="mt-3 text-muted-foreground">
-          Total a transferir:{" "}
-          <span className="font-medium text-foreground">
-            {formatPrice(Number.isFinite(quantity) ? quantity : 1)}
-          </span>
-        </p>
-
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="mt-8 space-y-5 rounded-3xl bg-background p-5 ring-1 ring-foreground/10 sm:p-8"
-        >
+  const form = (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-5 rounded-3xl bg-card p-5 ring-1 ring-foreground/10 sm:p-6"
+    >
           <Field label="Nombre y apellido" error={errors.name?.message}>
             <Input
               id="name"
@@ -227,6 +203,13 @@ export function PurchaseForm() {
             </p>
           ) : null}
 
+          <p className="text-sm text-muted-foreground">
+            Total a transferir:{" "}
+            <span className="font-medium text-foreground">
+              {formatPrice(Number.isFinite(quantity) ? quantity : 1)}
+            </span>
+          </p>
+
           <Button
             type="submit"
             disabled={isSubmitting}
@@ -235,7 +218,22 @@ export function PurchaseForm() {
             {isSubmitting ? "Asignando números…" : "Enviar comprobante"}
           </Button>
         </form>
-      </div>
+  );
+
+  if (assignedNumbers) {
+    if (embedded) return success;
+    return (
+      <section id="comprar" className="scroll-mt-20">
+        <div className="mx-auto w-full max-w-xl px-4 py-16">{success}</div>
+      </section>
+    );
+  }
+
+  if (embedded) return form;
+
+  return (
+    <section id="comprar" className="scroll-mt-20">
+      <div className="mx-auto w-full max-w-xl px-4 py-16">{form}</div>
     </section>
   );
 }

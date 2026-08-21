@@ -6,6 +6,7 @@ export type PrizeItem = {
 export type Combo = {
   id: number;
   name: string;
+  image: string;
   items: PrizeItem[];
 };
 
@@ -19,18 +20,19 @@ export const content = {
   siteName: "Rifa solidaria",
   hero: {
     eyebrow: "Rifa solidaria",
-    title: "Cinco combos. Una causa. Tu número puede cambiarlo todo.",
+    title: "Apoyemos a Henrry a pagar el hospital",
     subtitle:
       "Comprá tu número, transferí y subí el comprobante. Te asignamos los números al instante; el equipo los habilita cuando confirma el pago.",
-    cta: "Comprar números",
-    secondaryCta: "Ver premios",
+    cta: "Comprar Rifas",
+    photo: "/causa.svg",
   },
   cause: {
     title: "La causa",
-    heading: "Estamos recaudando fondos para una causa que nos importa",
+    heading: "Apoyemos a Henrry a pagar el hospital",
+    photo: "/causa.svg",
     paragraphs: [
-      "Completá este texto con el nombre de la organización, a quién ayuda y por qué la rifa. Dos o tres frases claras alcanzan: la gente necesita entender a dónde va su plata.",
-      "Cuando tengas fotos o un logo, los sumamos acá. Por ahora dejamos este espacio listo para el copy final.",
+      "Completá este texto con a quién ayuda Henrry y por qué la rifa. Dos o tres frases claras alcanzan: la gente necesita entender a dónde va su plata.",
+      "Cuando tengas la foto final, reemplazá public/causa.svg.",
     ],
   },
   ticket: {
@@ -50,6 +52,7 @@ export const content = {
     {
       id: 1,
       name: "Combo 1",
+      image: "/combos/combo-1.svg",
       items: [
         {
           description: "1 cupón de $500 USD para automatizaciones",
@@ -69,6 +72,7 @@ export const content = {
     {
       id: 2,
       name: "Combo 2",
+      image: "/combos/combo-2.svg",
       items: [
         {
           description: "1 cupón de $500 USD para automatizaciones",
@@ -87,6 +91,7 @@ export const content = {
     {
       id: 3,
       name: "Combo 3",
+      image: "/combos/combo-3.svg",
       items: [
         {
           description: "1 cupón de $500 USD para automatizaciones",
@@ -107,6 +112,7 @@ export const content = {
     {
       id: 4,
       name: "Combo 4",
+      image: "/combos/combo-4.svg",
       items: [
         {
           description: "1 cupón de $500 USD para automatizaciones",
@@ -125,6 +131,7 @@ export const content = {
     {
       id: 5,
       name: "Combo 5",
+      image: "/combos/combo-5.svg",
       items: [
         {
           description: "Diseño interior de un espacio (faltan los m2)",
@@ -146,14 +153,14 @@ export const content = {
     { name: "Auto Francia", slug: "auto-francia" },
     { name: "Pádel Arena", slug: "padel-arena" },
     { name: "Zékiri", slug: "zekiri" },
-    { name: "Etheral Senses", slug: "etheral-senses" },
-    { name: "Opticas Bunker", slug: "opticas-bunker" },
+    { name: "Etheral Scents", slug: "etheral-scents" },
+    { name: "Óptica Bunker", slug: "optica-bunker" },
     { name: "Baked with Love", slug: "baked-with-love" },
     { name: "Marraqueta", slug: "marraqueta" },
     { name: "Nutrifoods", slug: "nutrifoods" },
     { name: "MDeLaZerda", slug: "mdelazerda" },
     { name: "Make Poke LP", slug: "make-poke-lp" },
-    { name: "City Troops", slug: "city-troops" },
+    { name: "CityTroops", slug: "city-troops" },
     { name: "Kekes", slug: "kekes" },
     { name: "Ilapso", slug: "ilapso" },
     { name: "Merenda Charcutería", slug: "merenda-charcuteria" },

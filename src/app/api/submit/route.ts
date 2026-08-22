@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     const receipt = formData.get("receipt");
     if (!(receipt instanceof File) || receipt.size === 0) {
       return NextResponse.json(
-        { error: "Sube la foto del comprobante" },
+        { error: "Sube el comprobante" },
         { status: 400 },
       );
     }

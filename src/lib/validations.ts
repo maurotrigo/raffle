@@ -7,7 +7,19 @@ export const ACCEPTED_RECEIPT_TYPES = [
   "image/jpeg",
   "image/png",
   "image/webp",
+  "application/pdf",
 ] as const;
+
+export const RECEIPT_ACCEPT =
+  "image/jpeg,image/png,image/webp,application/pdf,.pdf";
+
+export const RECEIPT_FORMATS_LABEL = "JPG, PNG, WebP o PDF";
+
+export function isAcceptedReceiptType(type: string) {
+  return ACCEPTED_RECEIPT_TYPES.includes(
+    type as (typeof ACCEPTED_RECEIPT_TYPES)[number],
+  );
+}
 
 export const purchaseFieldsSchema = z.object({
   name: z.string().trim().min(2, "Ingresa tu nombre completo"),
@@ -32,29 +44,26 @@ function isFileList(value: unknown): value is FileList {
 
 export const purchaseFormSchema = purchaseFieldsSchema.extend({
   receipt: z
-    .custom<FileList>(isFileList, "Sube la foto del comprobante")
-    .refine((files) => files.length === 1, "Sube la foto del comprobante")
+    .custom<FileList>(isFileList, "Sube el comprobante")
+    .refine((files) => files.length === 1, "Sube el comprobante")
     .refine(
       (files) => files[0]?.size <= MAX_RECEIPT_BYTES,
-      "La imagen no puede superar 4.5 MB",
+      "El archivo no puede superar 4.5 MB",
     )
     .refine(
-      (files) =>
-        ACCEPTED_RECEIPT_TYPES.includes(
-          files[0]?.type as (typeof ACCEPTED_RECEIPT_TYPES)[number],
-        ),
-      "Usa una imagen JPG, PNG o WebP",
+      (files) => isAcceptedReceiptType(files[0]?.type ?? ""),
+      `Usa ${RECEIPT_FORMATS_LABEL}`,
     ),
 });
 
 export type PurchaseFormValues = z.infer<typeof purchaseFormSchema>;
 
 export function validateReceiptFile(file: File) {
-  if (!ACCEPTED_RECEIPT_TYPES.includes(file.type as (typeof ACCEPTED_RECEIPT_TYPES)[number])) {
-    return "Usa una imagen JPG, PNG o WebP";
+  if (!isAcceptedReceiptType(file.type)) {
+    return `Usa ${RECEIPT_FORMATS_LABEL}`;
   }
   if (file.size > MAX_RECEIPT_BYTES) {
-    return "La imagen no puede superar 4.5 MB";
+    return "El archivo no puede superar 4.5 MB";
   }
   return null;
 }

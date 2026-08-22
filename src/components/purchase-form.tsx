@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CircleCheck, ImagePlus } from "lucide-react";
+import { CircleCheck, FileText, ImagePlus } from "lucide-react";
 import { useRef, useState, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 
@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { content, formatPrice, formatRaffleNumbers } from "@/lib/content";
 import {
   purchaseFormSchema,
+  RECEIPT_ACCEPT,
+  RECEIPT_FORMATS_LABEL,
   type PurchaseFormValues,
 } from "@/lib/validations";
 
@@ -36,14 +38,17 @@ export function PurchaseForm({ embedded = false }: { embedded?: boolean }) {
   const [quantity, setQuantity] = useState(1);
   const [receiptName, setReceiptName] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [receiptIsPdf, setReceiptIsPdf] = useState(false);
   const receiptInputRef = useRef<HTMLInputElement | null>(null);
   const receiptRegister = register("receipt");
 
   function setReceiptPreview(file?: File) {
     setReceiptName(file?.name ?? null);
+    setReceiptIsPdf(file?.type === "application/pdf");
     setPreviewUrl((current) => {
       if (current) URL.revokeObjectURL(current);
-      return file ? URL.createObjectURL(file) : null;
+      if (!file || file.type === "application/pdf") return null;
+      return URL.createObjectURL(file);
     });
   }
 
@@ -155,7 +160,7 @@ export function PurchaseForm({ embedded = false }: { embedded?: boolean }) {
             <input
               id="receipt"
               type="file"
-              accept="image/jpeg,image/png,image/webp"
+              accept={RECEIPT_ACCEPT}
               className="sr-only"
               {...receiptRegister}
               ref={(element) => {
@@ -172,26 +177,38 @@ export function PurchaseForm({ embedded = false }: { embedded?: boolean }) {
               className="flex min-h-28 w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-input bg-muted/40 px-4 py-6 text-center text-sm text-muted-foreground"
               onClick={() => receiptInputRef.current?.click()}
             >
-              {previewUrl ? (
-                <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={previewUrl}
-                    alt="Vista previa del comprobante"
-                    className="max-h-40 w-auto rounded-lg object-contain"
-                  />
-                  <span className="font-medium text-foreground">
-                    {receiptName}
-                  </span>
-                  <span>Toca para cambiar la imagen</span>
-                </>
+              {receiptName ? (
+                receiptIsPdf ? (
+                  <>
+                    <FileText className="size-10 text-primary" />
+                    <span className="font-medium text-foreground">
+                      {receiptName}
+                    </span>
+                    <span>Toca para cambiar el archivo</span>
+                  </>
+                ) : previewUrl ? (
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={previewUrl}
+                      alt="Vista previa del comprobante"
+                      className="max-h-40 w-auto rounded-lg object-contain"
+                    />
+                    <span className="font-medium text-foreground">
+                      {receiptName}
+                    </span>
+                    <span>Toca para cambiar el archivo</span>
+                  </>
+                ) : null
               ) : (
                 <>
                   <ImagePlus className="size-5" />
                   <span className="font-medium text-foreground">
-                    Elegir imagen del comprobante
+                    Elegir comprobante
                   </span>
-                  <span>JPG, PNG o WebP · máx. 4.5 MB</span>
+                  <span>
+                    {RECEIPT_FORMATS_LABEL} · máx. 4.5 MB
+                  </span>
                 </>
               )}
             </button>
